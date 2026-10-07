@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { useAuth } from "@/components/AuthProvider";
@@ -159,10 +160,21 @@ export function PropertyDetail({ id }: { id: string }) {
       <div
         className={`relative mt-6 h-64 overflow-hidden rounded-3xl bg-gradient-to-br ${gradientFor(property.type)} sm:h-80`}
       >
-        <div
-          className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.25)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.25)_1px,transparent_1px)] bg-[size:32px_32px]"
-          aria-hidden="true"
-        />
+        {property.image ? (
+          <Image
+            src={property.image}
+            alt={property.title}
+            fill
+            priority
+            sizes="(max-width: 1152px) 100vw, 1152px"
+            className="object-cover"
+          />
+        ) : (
+          <div
+            className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.25)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.25)_1px,transparent_1px)] bg-[size:32px_32px]"
+            aria-hidden="true"
+          />
+        )}
         <span className="absolute left-5 top-5 rounded-full bg-zinc-950/70 px-3 py-1.5 text-xs font-bold text-white backdrop-blur">
           {property.purpose === "RENT" ? "FOR RENT" : "FOR SALE"}
         </span>

@@ -12,6 +12,7 @@ export interface Property {
   baths: number;
   area: number;
   description: string;
+  image: string;
   features: string[];
   isFeatured: boolean;
   views: number;

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { useAuth } from "@/components/AuthProvider";
@@ -97,22 +98,34 @@ export function PropertyCard({
         <div
           className={`relative h-44 overflow-hidden bg-gradient-to-br ${gradientFor(property.type)}`}
         >
-          <div
-            className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.25)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.25)_1px,transparent_1px)] bg-[size:26px_26px]"
-            aria-hidden="true"
-          />
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="absolute -right-4 -bottom-4 h-36 w-36 text-white/25 transition duration-500 group-hover:scale-105"
-            aria-hidden="true"
-          >
-            <path d={typePaths[property.type] ?? typePaths.APARTMENT} />
-          </svg>
+          {property.image ? (
+            <Image
+              src={property.image}
+              alt={property.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <>
+              <div
+                className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.25)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.25)_1px,transparent_1px)] bg-[size:26px_26px]"
+                aria-hidden="true"
+              />
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="absolute -right-4 -bottom-4 h-36 w-36 text-white/25 transition duration-500 group-hover:scale-105"
+                aria-hidden="true"
+              >
+                <path d={typePaths[property.type] ?? typePaths.APARTMENT} />
+              </svg>
+            </>
+          )}
 
           <span className="absolute left-3 top-3 rounded-full bg-zinc-950/70 px-2.5 py-1 text-[10px] font-bold tracking-wide text-white backdrop-blur">
             {property.purpose === "RENT" ? "FOR RENT" : "FOR SALE"}
