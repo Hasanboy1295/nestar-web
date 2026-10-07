@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
@@ -19,12 +19,26 @@ const perks = [
 
 export default function LoginForm() {
   const router = useRouter();
-  const { refresh } = useAuth();
+  const { refresh, user, loading: authLoading } = useAuth();
 
   const [identifier, setIdentifier] = useState("");
   const [memberPassword, setMemberPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && user) {
+      router.replace("/dashboard");
+    }
+  }, [authLoading, user, router]);
+
+  if (!authLoading && user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+        <span className="h-9 w-9 animate-spin rounded-full border-2 border-emerald-400 border-t-transparent" />
+      </div>
+    );
+  }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

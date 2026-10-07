@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
@@ -19,7 +19,7 @@ const perks = [
 
 export default function RegisterForm() {
   const router = useRouter();
-  const { refresh } = useAuth();
+  const { refresh, user, loading: authLoading } = useAuth();
 
   const [form, setForm] = useState({
     memberFullName: "",
@@ -29,6 +29,20 @@ export default function RegisterForm() {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && user) {
+      router.replace("/dashboard");
+    }
+  }, [authLoading, user, router]);
+
+  if (!authLoading && user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+        <span className="h-9 w-9 animate-spin rounded-full border-2 border-emerald-400 border-t-transparent" />
+      </div>
+    );
+  }
 
   function update(field: keyof typeof form) {
     return (event: React.ChangeEvent<HTMLInputElement>) =>

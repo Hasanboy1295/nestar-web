@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LiveStats } from "@/components/LiveStats";
 import { FeaturedProperties } from "@/components/FeaturedProperties";
+import { AuthCta, CtaSection } from "@/components/AuthCta";
 
 const features = [
   {
@@ -100,48 +101,7 @@ export default function Home() {
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/register"
-                  className="group inline-flex h-12 items-center gap-2 rounded-full bg-emerald-400 px-7 text-sm font-semibold text-zinc-950 shadow-lg shadow-emerald-500/25 transition hover:bg-emerald-300"
-                >
-                  Create free account
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-4 w-4 transition group-hover:translate-x-0.5"
-                  >
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/login"
-                  className="inline-flex h-12 items-center rounded-full border border-white/15 px-7 text-sm font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/5"
-                >
-                  Sign in
-                </Link>
-              </div>
-
-              <div className="mt-10 flex items-center gap-4">
-                <div className="flex -space-x-3">
-                  {["AK", "DM", "SR", "NL"].map((initials, index) => (
-                    <span
-                      key={initials}
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 text-[11px] font-bold text-zinc-950 ring-2 ring-zinc-950"
-                      style={{ zIndex: 4 - index }}
-                    >
-                      {initials}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-sm text-zinc-500">
-                  Joined by{" "}
-                  <span className="font-semibold text-zinc-300">12k+</span>{" "}
-                  members this month
-                </p>
+                <AuthCta />
               </div>
             </div>
 
@@ -308,12 +268,7 @@ export default function Home() {
                 ))}
               </ul>
 
-              <Link
-                href="/register"
-                className="mt-9 inline-flex h-12 items-center gap-2 rounded-full border border-white/15 px-7 text-sm font-medium text-zinc-100 transition hover:border-emerald-400/50 hover:bg-emerald-400/10"
-              >
-                Explore the platform
-              </Link>
+              <AuthCta outline />
             </div>
 
             {/* Dashboard mock */}
@@ -393,37 +348,7 @@ export default function Home() {
         </section>
 
         {/* ── CTA ──────────────────────────────────────────── */}
-        <section className="mx-auto max-w-7xl px-6 pb-28 pt-24">
-          <div className="relative overflow-hidden rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 via-zinc-900/80 to-cyan-500/10 px-8 py-16 text-center sm:px-16">
-            <div
-              className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-emerald-500/20 blur-[100px]"
-              aria-hidden="true"
-            />
-            <div className="relative">
-              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                Ready to make your move?
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-zinc-400">
-                Create your free account in under a minute — the first account
-                even gets admin access to explore everything.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/register"
-                  className="inline-flex h-12 items-center rounded-full bg-emerald-400 px-8 text-sm font-semibold text-zinc-950 shadow-lg shadow-emerald-500/25 transition hover:bg-emerald-300"
-                >
-                  Get started free
-                </Link>
-                <Link
-                  href="/login"
-                  className="inline-flex h-12 items-center rounded-full border border-white/15 px-8 text-sm font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/5"
-                >
-                  I already have an account
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CtaSection />
       </main>
 
       <Footer />
