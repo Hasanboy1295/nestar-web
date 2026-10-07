@@ -63,8 +63,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    let active = true;
+    api<{ member: SessionMember }>("/api/auth/me")
+      .then((data) => {
+        if (active) setUser(data.member);
+      })
+      .catch(() => {
+        if (active) setUser(null);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const value = useMemo(
     () => ({ user, loading, refresh, logout }),

@@ -8,27 +8,32 @@ const columns = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "#features" },
-      { label: "Platform", href: "#platform" },
-      { label: "Pricing", href: "#" },
-      { label: "Changelog", href: "#" },
+      { label: "Properties", href: "/properties" },
+      { label: "Features", href: "/#features" },
+      { label: "Platform", href: "/#platform" },
+      { label: "Dashboard", href: "/dashboard" },
+    ],
+  },
+  {
+    title: "Account",
+    links: [
+      { label: "Sign in", href: "/login" },
+      { label: "Create account", href: "/register" },
+      { label: "Favorites", href: "/dashboard/favorites" },
+      { label: "Settings", href: "/dashboard/settings" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "#stats" },
-      { label: "Careers", href: "#" },
-      { label: "Contact", href: "#" },
-      { label: "Blog", href: "#" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy", href: "#" },
-      { label: "Terms", href: "#" },
-      { label: "Security", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "About", href: "/#stats" },
+      { label: "Contact", href: "mailto:hello@nestar.uz" },
+      {
+        label: "API status",
+        href: "https://nestar-api.vercel.app/api/health",
+        external: true,
+      },
     ],
   },
 ];
@@ -54,12 +59,23 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {column.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-zinc-500 transition hover:text-zinc-200"
-                    >
-                      {link.label}
-                    </Link>
+                    {"external" in link && link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sm text-zinc-500 transition hover:text-zinc-200"
+                      >
+                        {link.label} ↗
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-zinc-500 transition hover:text-zinc-200"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

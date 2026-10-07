@@ -1,13 +1,8 @@
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-
-const stats = [
-  { value: "12,400+", label: "Premium listings" },
-  { value: "3,200+", label: "Trusted agents" },
-  { value: "98%", label: "Happy buyers" },
-  { value: "48", label: "Cities covered" },
-];
+import { LiveStats } from "@/components/LiveStats";
+import { FeaturedProperties } from "@/components/FeaturedProperties";
 
 const features = [
   {
@@ -151,8 +146,11 @@ export default function Home() {
             </div>
 
             {/* Floating preview cards */}
-            <div className="relative hidden h-[440px] lg:block" aria-hidden="true">
-              <div className="absolute right-2 top-2 w-72 animate-float rounded-3xl border border-white/10 bg-white/[0.05] p-4 shadow-2xl shadow-black/50 backdrop-blur-xl">
+            <div className="relative hidden h-[440px] lg:block">
+              <Link
+                href="/properties"
+                className="group absolute right-2 top-2 block w-72 animate-float rounded-3xl border border-white/10 bg-white/[0.05] p-4 shadow-2xl shadow-black/50 backdrop-blur-xl transition hover:border-emerald-400/40"
+              >
                 <div className="relative h-36 rounded-2xl bg-gradient-to-br from-emerald-500/50 via-teal-500/30 to-cyan-500/40">
                   <span className="absolute left-3 top-3 rounded-full bg-zinc-950/70 px-2.5 py-1 text-[10px] font-bold tracking-wide text-emerald-300">
                     FOR SALE
@@ -161,7 +159,7 @@ export default function Home() {
                     4.9 ★
                   </span>
                 </div>
-                <p className="mt-3.5 text-sm font-semibold text-zinc-100">
+                <p className="mt-3.5 text-sm font-semibold text-zinc-100 transition group-hover:text-emerald-300">
                   Skyline Villa · Chilonzor
                 </p>
                 <p className="mt-1 text-xs text-zinc-500">
@@ -171,13 +169,16 @@ export default function Home() {
                   <span className="text-lg font-bold text-emerald-300">
                     $480,000
                   </span>
-                  <span className="rounded-full bg-white/5 px-2.5 py-1 text-[10px] font-medium text-zinc-400">
-                    Verified
+                  <span className="rounded-full bg-white/5 px-2.5 py-1 text-[10px] font-medium text-zinc-400 transition group-hover:bg-emerald-400/15 group-hover:text-emerald-300">
+                    View all →
                   </span>
                 </div>
-              </div>
+              </Link>
 
-              <div className="absolute left-0 top-48 w-60 animate-float-delayed rounded-3xl border border-white/10 bg-white/[0.05] p-5 shadow-2xl shadow-black/50 backdrop-blur-xl">
+              <div
+                aria-hidden="true"
+                className="absolute left-0 top-48 w-60 animate-float-delayed rounded-3xl border border-white/10 bg-white/[0.05] p-5 shadow-2xl shadow-black/50 backdrop-blur-xl"
+              >
                 <div className="flex items-center gap-3">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 text-sm font-bold text-zinc-950">
                     DK
@@ -199,7 +200,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="absolute bottom-6 right-16 w-56 animate-float rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 backdrop-blur-xl">
+              <div
+                aria-hidden="true"
+                className="absolute bottom-6 right-16 w-56 animate-float rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 backdrop-blur-xl"
+              >
                 <p className="text-xs text-emerald-300/80">This week</p>
                 <p className="mt-0.5 text-sm font-semibold text-zinc-100">
                   ↑ 18% deals closed
@@ -209,22 +213,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Stats ────────────────────────────────────────── */}
-        <section
-          id="stats"
-          className="border-y border-white/5 bg-white/[0.02]"
-        >
-          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px px-6 py-12 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label} className="px-4 text-center">
-                <p className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl">
-                  {stat.value}
-                </p>
-                <p className="mt-1.5 text-sm text-zinc-500">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* ── Stats (live) ─────────────────────────────────── */}
+        <LiveStats />
+
+        {/* ── Featured properties (live) ───────────────────── */}
+        <FeaturedProperties />
 
         {/* ── Features ─────────────────────────────────────── */}
         <section id="features" className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
