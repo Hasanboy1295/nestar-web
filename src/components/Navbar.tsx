@@ -1,0 +1,86 @@
+"use client";
+
+import Link from "next/link";
+import { useAuth } from "@/components/AuthProvider";
+import { Logo } from "@/components/Logo";
+import { Avatar } from "@/components/Avatar";
+
+export function Navbar() {
+  const { user, loading, logout } = useAuth();
+
+  async function handleLogout() {
+    await logout();
+    window.location.href = "/";
+  }
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-white/5 bg-zinc-950/70 backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6">
+        <Link href="/" className="shrink-0">
+          <Logo />
+        </Link>
+
+        <div className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
+          <a
+            href="#features"
+            className="transition hover:text-zinc-100"
+          >
+            Features
+          </a>
+          <a href="#platform" className="transition hover:text-zinc-100">
+            Platform
+          </a>
+          <a href="#stats" className="transition hover:text-zinc-100">
+            Company
+          </a>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {loading ? (
+            <span className="h-9 w-24 animate-pulse rounded-full bg-white/5" />
+          ) : user ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="hidden rounded-full px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-white/5 hover:text-white sm:inline-flex"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 py-1.5 pl-1.5 pr-4 transition hover:border-emerald-400/40"
+              >
+                <Avatar name={user.memberFullName || user.memberNick} />
+                <span className="max-w-28 truncate text-sm font-medium text-zinc-200">
+                  {user.memberNick}
+                </span>
+              </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="hidden rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-400 transition hover:border-red-500/30 hover:text-red-300 sm:inline-flex"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="rounded-full px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-white/5 hover:text-white"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/register"
+                className="rounded-full bg-emerald-400 px-5 py-2 text-sm font-semibold text-zinc-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-300"
+              >
+                Get started
+              </Link>
+            </>
+          )}
+        </div>
+      </nav>
+    </header>
+  );
+}
